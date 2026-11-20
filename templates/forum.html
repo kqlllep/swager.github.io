@@ -1,0 +1,8 @@
+{% extends "base.html" %}{% block content %}
+<section><div class="wrap" style="max-width:720px">
+  <a href="/" style="color:var(--dim)">← назад</a>
+  <h2 style="margin-top:16px">{{s.title}}</h2>
+  <p style="color:var(--dim);margin:12px 0">{{s.views}} просмотров</p>
+  <div class="card" style="font-family:ui-monospace,monospace;font-size:13px;word-break:break-all">{{s.url}}</div>
+</div></section>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block content %}
+<section>
+  <div class="wrap">
+    <h1 style="font-size:clamp(30px,5vw,50px);margin-bottom:14px">
+      <span style="background:linear-gradient(135deg,var(--acc),var(--acc3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">Swager</span> — общий VPN и форум
+    </h1>
+    <p style="color:var(--dim);max-width:640px;margin-bottom:40px">Два в одном: публичная витрина конфигов и подписок + форум. Без регистрации. Публикуй своё, смотри чужое, обсуждай в тредах.</p>
+
+    <div id="tops" class="grid">
+      <div class="card">
+        <div class="pill">ТОП КОНФИГОВ</div>
+        <h3 style="margin-top:12px">Самые просматриваемые</h3>
+        {% for c in top_configs %}
+          <div style="padding:12px 0;border-bottom:1px solid var(--line)">
+            <span class="top-badge">{{ loop.index }}</span>
+            <a href="/c/{{c.id}}" style="margin-left:10px;font-weight:600">{{c.title}}</a>
+            <div class="meta">{{c.protocol}} · {{c.views}} просмотров</div>
+          </div>
+        {% else %}<p style="color:var(--dim);margin-top:12px">Пока пусто.</p>{% endfor %}
+      </div>
+      <div class="card">
+        <div class="pill">ТОП ПОДПИСОК</div>
+        <h3 style="margin-top:12px">Самые просматриваемые</h3>
+        {% for s in top_subs %}
+          <div style="padding:12px 0;border-bottom:1px solid var(--line)">
+            <span class="top-badge">{{ loop.index }}</span>
+            <a href="/s/{{s.id}}" style="margin-left:10px;font-weight:600">{{s.title}}</a>
+            <div class="meta">{{s.views}} просмотров</div>
+          </div>
+        {% else %}<p style="color:var(--dim);margin-top:12px">Пока пусто.</p>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="publish" style="background:var(--panel);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <h2>Опубликовать своё</h2>
+    <p style="color:var(--dim);margin-bottom:24px">Без регистрации. Заполни форму — появится на витрине сразу.</p>
+    <div class="grid">
+      <div class="card">
+        <h3>Новый конфиг</h3>
+        <form method="post" action="/publish/config">
+          <label>Название</label><input name="title" required>
+          <label>Протокол</label><select name="protocol"><option>VLESS</option><option>VMess</option><option>Trojan</option><option>SS</option><option>Hysteria2</option></select>
+          <label>Содержимое (ссылка или текст)</label><textarea name="payload" rows="4" required></textarea>
+          <button class="btn btn-primary" style="width:100%">Опубликовать конфиг</button>
+        </form>
+      </div>
+      <div class="card">
+        <h3>Новая подписка</h3>
+        <form method="post" action="/publish/sub">
+          <label>Название</label><input name="title" required>
+          <label>URL подписки</label><input name="url" required>
+          <button class="btn btn-primary" style="width:100%">Опубликовать подписку</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="configs">
+  <div class="wrap">
+    <h2>Все конфиги</h2>
+    <div class="grid">
+      {% for c in configs %}
+        <a href="/c/{{c.id}}" style="text-decoration:none;color:inherit"><div class="card">
+          <span class="pill">{{c.protocol}}</span>
+          <h3 style="margin-top:10px">{{c.title}}</h3>
+          <div class="meta">{{c.views}} просмотров</div>
+        </div></a>
+      {% else %}<p style="color:var(--dim)">Пусто.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="subs" style="background:var(--panel);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <h2>Все подписки</h2>
+    <div class="grid">
+      {% for s in subs %}
+        <a href="/s/{{s.id}}" style="text-decoration:none;color:inherit"><div class="card">
+          <h3>{{s.title}}</h3>
+          <p style="word-break:break-all;font-family:ui-monospace,monospace;font-size:12px;color:var(--acc3)">{{s.url}}</p>
+          <div class="meta">{{s.views}} просмотров</div>
+        </div></a>
+      {% else %}<p style="color:var(--dim)">Пусто.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section id="forum" style="background:var(--panel);border-block:1px solid var(--line)">
+  <div class="wrap">
+    <h2>Форум</h2>
+    <p style="color:var(--dim);margin-bottom:20px">Последние треды. <a href="/forum">Все →</a></p>
+    <div class="grid">
+      {% for t in threads %}
+        <div class="card"><h3>{{t.title}}</h3><div class="meta">{{t.author}} · {{t.replies|length}} ответов</div></div>
+      {% else %}<p style="color:var(--dim)">Пусто.</p>{% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

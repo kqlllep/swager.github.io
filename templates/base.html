@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Swager — общий VPN и форум{% endblock %}</title>
+<meta name="description" content="Swager — общий VPN и форум 2в1. Публичная витрина конфигов и подписок, обсуждения без регистрации.">
+<meta property="og:title" content="Swager — общий VPN и форум">
+<meta property="og:description" content="Конфиги, подписки, топы и форум в одном месте. Без регистрации.">
+<style>
+:root{--bg:#070a08;--panel:#0e1411;--line:#1c2621;--txt:#e8f0ea;--dim:#8a9d92;--acc:#22c55e;--acc2:#10b981;--acc3:#4ade80;--tr:.25s}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--bg);color:var(--txt);font-family:-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55}
+a{color:var(--acc3);text-decoration:none}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+nav{position:sticky;top:0;background:rgba(7,10,8,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line);z-index:50}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;display:flex;align-items:center;gap:8px;color:var(--txt)}
+.logo-mark{width:26px;height:26px;border-radius:7px;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800}
+.nav-links{display:flex;gap:20px;font-size:14px}
+.nav-links a{color:var(--dim)}
+.nav-links a:hover{color:var(--txt)}
+.btn{padding:10px 20px;border-radius:9px;font-weight:600;font-size:14px;border:none;cursor:pointer;font-family:inherit;text-decoration:none;display:inline-block;text-align:center}
+.btn-primary{background:linear-gradient(135deg,var(--acc),var(--acc2));color:#03130a}
+.btn-ghost{background:transparent;color:var(--txt);border:1px solid var(--line)}
+.btn-sm{padding:7px 14px;font-size:13px}
+.banner{background:linear-gradient(90deg,rgba(34,197,94,.18),rgba(16,185,129,.08),rgba(34,197,94,.18));border-bottom:1px solid rgba(34,197,94,.35);padding:10px 0;text-align:center;font-size:13px;font-weight:600;position:relative;overflow:hidden}
+.banner b{color:var(--acc3)}
+.banner::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(74,222,128,.15),transparent);transform:translateX(-100%);animation:shine 3s infinite}
+@keyframes shine{to{transform:translateX(100%)}}
+section{padding:60px 0}
+h1,h2{letter-spacing:-.5px}
+h2{font-size:28px;margin-bottom:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px;transition:border-color var(--tr),transform var(--tr)}
+.card:hover{border-color:rgba(34,197,94,.45);transform:translateY(-3px)}
+.card h3{font-size:17px;margin-bottom:8px}
+.card p{color:var(--dim);font-size:14px}
+.meta{font-size:12px;color:var(--dim);font-family:ui-monospace,monospace;margin-top:10px}
+.pill{display:inline-block;padding:3px 10px;border-radius:100px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.3);color:#86efac;font-size:11px;font-weight:700;font-family:ui-monospace,monospace}
+.top-badge{font-size:22px;font-weight:800;color:var(--acc3);font-family:ui-monospace,monospace}
+input,textarea,select{width:100%;padding:11px 14px;background:var(--bg);border:1px solid var(--line);border-radius:9px;color:var(--txt);font-family:inherit;font-size:14px;margin-bottom:12px}
+input:focus,textarea:focus{outline:none;border-color:var(--acc)}
+label{font-size:13px;color:var(--dim);display:block;margin-bottom:6px}
+.flash{padding:12px 16px;border-radius:9px;margin-bottom:16px;font-size:14px}
+.flash.ok{background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.4);color:#86efac}
+.flash.err{background:rgba(250,204,21,.08);border:1px solid rgba(250,204,21,.3);color:#facc15}
+</style>
+</head><body>
+
+<div class="banner">🚀 <b>SWAGER 2.0</b> — общий VPN и форум в одном месте. Публикуй конфиги, обсуждай, смотри топы.</div>
+
+<nav><div class="wrap nav-inner">
+  <a class="logo" href="/"><span class="logo-mark">S</span><span style="background:linear-gradient(135deg,var(--acc),var(--acc3));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">SWAGER</span></a>
+  <div class="nav-links">
+    <a href="/#configs">Конфиги</a>
+    <a href="/#subs">Подписки</a>
+    <a href="/forum">Форум</a>
+    <a href="/#tops">Топы</a>
+    <a href="/#publish">Опубликовать</a>
+  </div>
+</div></nav>
+
+{% with msgs = get_flashed_messages(with_categories=true) %}
+  {% for cat, msg in msgs %}<div class="wrap"><div class="flash {{cat}}">{{msg}}</div></div>{% endfor %}
+{% endwith %}
+
+{% block content %}{% endblock %}
+</body></html>
